@@ -1,0 +1,18 @@
+# Ignore MQL5 files
+*.mq5
+*.mqh
+
+# Ignore C++ files
+*.cpp
+*.h
+*.hpp
+*.obj
+*.exe
+*.lib
+*.dll
+*.pdb
+*.idb
+*.ncb
+*.sdf
+*.suo
+*.user
