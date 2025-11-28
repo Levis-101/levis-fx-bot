@@ -13,8 +13,8 @@
 struct TouchEvent {
     datetime time;          // Time of touch
     double price;           // Price at touch
-    bool isHigh;           // True if touching high, false if low
-    int barIndex;          // Bar index where touch occurred
+    bool isHigh;            // True if touching high, false if low
+    int barIndex;           // Bar index where touch occurred
 };
 
 //+------------------------------------------------------------------+
@@ -33,7 +33,8 @@ private:
     
 public:
     //+------------------------------------------------------------------+
-    //| Constructor (Updated for V11.0.0 compatibility)                  |
+    //| Constructor (V5.0.0 - Matches LevisFxBot.mq5 V11.0.0)            |
+    //| Parameters: symbol, timeframe, tolerancePoints                   |
     //+------------------------------------------------------------------+
     CRetestCounter(string symbol, ENUM_TIMEFRAMES timeframe, int tolerancePoints) {
         m_symbol = symbol;
@@ -44,7 +45,7 @@ public:
     }
 
     //+------------------------------------------------------------------+
-    //| Check for New Touches                                            |
+    //| Check for New Touches (Requires CSessionRange instance)          |
     //+------------------------------------------------------------------+
     void CheckTouches(CSessionRange *session) {
         if (!session->IsValid() || !m_isTouchAcknowledged) return;
@@ -76,7 +77,6 @@ public:
             m_hasNewTouch = true;
             m_isTouchAcknowledged = false;
         }
-        // Note: If both are touched, the logic favors the first one detected or ignores (simple version)
     }
 
     // --- Required Public Methods ---
@@ -94,7 +94,5 @@ public:
         m_isTouchAcknowledged = true;
         m_hasNewTouch = false;
     }
-    
-    // The main EA also uses a simple IsNearHigh/IsNearLow check which would need to be included here or in SessionRange.mqh
 };
 //+------------------------------------------------------------------+
